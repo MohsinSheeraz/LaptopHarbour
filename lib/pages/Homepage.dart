@@ -1,5 +1,5 @@
+import 'package:appharbour/pages/Registration.dart';
 import 'package:flutter/material.dart';
-import 'Registration.dart';
 
 class HomePage extends StatefulWidget {
   final String? firstName;
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('LaptopHarbour'),
         actions: [
           if (_firstName == null) ...[
             TextButton(
@@ -101,13 +101,98 @@ class _HomePageState extends State<HomePage> {
           ]
         ],
       ),
-      body: Center(
-        child: Text(
-          _firstName != null
-              ? 'Welcome, $_firstName!'
-              : 'Welcome to the Home Page!',
-          style: TextStyle(fontSize: 24),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Featured Section
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/placeholder.png'), // Replace with your image
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Center(
+                child: Text(
+                  'Featured Laptops',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    backgroundColor: Colors.black54,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            // Categories Section
+            Text(
+              'Categories',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: [
+                  _buildCategoryCard('Laptops', 'assets/laptops.png'),
+                  _buildCategoryCard('Accessories', 'assets/accessories.png'),
+                  _buildCategoryCard('Gaming', 'assets/gaming.png'),
+                  _buildCategoryCard('Business', 'assets/business.png'),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            // Filters Section
+            ElevatedButton(
+              onPressed: () {
+                // Add filter functionality later
+              },
+              child: Text('Apply Filters'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryCard(String title, String imagePath) {
+    return Card(
+      elevation: 5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }
